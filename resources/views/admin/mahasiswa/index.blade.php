@@ -22,14 +22,16 @@
   @endif
 
   <div class="table-responsive">
-    <table class="table table-bordered table-striped table-hover">
-    <thead class="thead-dark">
+    <table class="table table-bordered table-hover">
+    <thead class="table-success" style="background-color: #d4edda;">
       <tr>
       <th>NIM</th>
       <th>Nama</th>
       <th>Program Studi</th>
       <th>Email</th>
+      <th>Phone</th>
       <th>Semester</th>
+      <th>Sosial Media</th>
       </tr>
     </thead>
     <tbody>
@@ -39,7 +41,9 @@
       <td>{{ $mhs->detailMahasiswa->name }}</td>
       <td>{{ $mhs->detailMahasiswa->prodi }}</td>
       <td>{{ $mhs->detailMahasiswa->email }}</td>
+      <td>{{ $mhs->detailMahasiswa->phone }}</td>
       <td>{{ $mhs->detailMahasiswa->semester }}</td>
+      <td>{{ $mhs->detailMahasiswa->sosial_media }}</td>
       </tr>
     @endforeach
     </tbody>
