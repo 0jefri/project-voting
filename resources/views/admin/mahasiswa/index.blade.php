@@ -9,7 +9,7 @@
     <div class="d-flex gap-2">
     <!-- Menambahkan sedikit jarak antar tombol dengan menggunakan gap-2 -->
     <a href="{{ route('admin.mahasiswa.create') }}" class="btn btn-success btn-md">Tambah Mahasiswa</a>
-    <a href="{{ route('admin.mahasiswa.create') }}" class="btn btn-primary btn-md">Import Mahasiswa</a>
+    <a href="{{ route('admin.mahasiswa.import') }}" class="btn btn-primary btn-md">Import Mahasiswa</a>
     </div>
   </div>
 

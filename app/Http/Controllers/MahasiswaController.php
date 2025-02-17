@@ -5,6 +5,9 @@ use App\Models\User;
 use App\Models\DetailMahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\MahasiswaImport;
+
 
 class MahasiswaController extends Controller
 {
@@ -19,10 +22,23 @@ class MahasiswaController extends Controller
         return view('admin.mahasiswa.create');
     }
 
-    // public function page()
-    // {
-    //     return view('admin.mahasiswa.page');
-    // }
+    public function import(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            // Jika request GET, tampilkan halaman import
+            return view('admin.mahasiswa.import');
+        }
+
+        // Jika request POST, proses file import
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        Excel::import(new MahasiswaImport, $request->file('file'));
+
+        return redirect()->route('admin.mahasiswa.import')->with('success', 'Data Mahasiswa berhasil diimport!');
+    }
+
 
 
     public function store(Request $request)
