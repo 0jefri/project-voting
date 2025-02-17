@@ -6,6 +6,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title')</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Navbar dengan shadow dan transparan */
+    .navbar {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background: rgba(33, 37, 41, 0.95);
+      /* Warna dark dengan sedikit transparansi */
+    }
+
+    /* Container utama dengan shadow dan border-radius */
+    .content-container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    /* Efek hover untuk navbar link */
+    .navbar-nav .nav-link {
+      transition: all 0.3s ease-in-out;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #ffc107 !important;
+      /* Warna kuning Bootstrap */
+    }
+
+    /* Tombol Logout dengan efek hover */
+    .btn-outline-danger {
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btn-outline-danger:hover {
+      background-color: #dc3545;
+      color: #fff;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -50,8 +87,11 @@
   </nav>
 
   <div class="container mt-4">
-    @yield('content')
+    <div class="content-container">
+      @yield('content')
+    </div>
   </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
