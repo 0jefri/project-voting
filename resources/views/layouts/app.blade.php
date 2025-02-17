@@ -10,8 +10,28 @@
     /* Navbar dengan shadow dan transparan */
     .navbar {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      background: rgba(33, 37, 41, 0.95);
-      /* Warna dark dengan sedikit transparansi */
+      background: rgba(255, 255, 255, 0.9);
+      /* Warna putih dengan transparansi */
+    }
+
+    /* Mengubah warna teks navbar menjadi biru */
+    .navbar-nav .nav-link {
+      color: #007bff;
+      /* Warna biru Bootstrap */
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Efek hover untuk navbar link */
+    .navbar-nav .nav-link:hover {
+      color: #fff !important;
+      /* Warna putih pada hover */
+      background-color: #007bff;
+      /* Background biru pada hover */
+      transform: translateY(-3px);
+      /* Efek timbul */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      /* Efek shadow timbul */
+      border-radius: 10px;
     }
 
     /* Container utama dengan shadow dan border-radius */
@@ -20,16 +40,6 @@
       border-radius: 10px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       padding: 20px;
-    }
-
-    /* Efek hover untuk navbar link */
-    .navbar-nav .nav-link {
-      transition: all 0.3s ease-in-out;
-    }
-
-    .navbar-nav .nav-link:hover {
-      color: #ffc107 !important;
-      /* Warna kuning Bootstrap */
     }
 
     /* Tombol Logout dengan efek hover */
@@ -42,11 +52,10 @@
       color: #fff;
     }
   </style>
-
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
       <a class="navbar-brand" href="#">
         <img src="{{ asset('images/logo.png') }}" alt="Logo" style="max-height: 40px;">
@@ -91,7 +100,6 @@
       @yield('content')
     </div>
   </div>
-
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

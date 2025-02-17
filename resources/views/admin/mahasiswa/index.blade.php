@@ -7,9 +7,13 @@
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="mb-0">Daftar Mahasiswa</h2>
     <div class="d-flex gap-2">
-    <!-- Menambahkan sedikit jarak antar tombol dengan menggunakan gap-2 -->
+    <!-- Tombol Tambah Mahasiswa tetap seperti biasa -->
     <a href="{{ route('admin.mahasiswa.create') }}" class="btn btn-success btn-md">Tambah Mahasiswa</a>
-    <a href="{{ route('admin.mahasiswa.import') }}" class="btn btn-primary btn-md">Import Mahasiswa</a>
+
+    <!-- Tombol untuk membuka modal -->
+    <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#importModal">
+      Import Mahasiswa
+    </button>
     </div>
   </div>
 
@@ -40,5 +44,29 @@
     @endforeach
     </tbody>
     </table>
+  </div>
+
+  <!-- Modal Import Mahasiswa -->
+  <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="importModalLabel">Import Data Mahasiswa</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form action="{{ route('admin.mahasiswa.import') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="mb-3">
+        <label for="file" class="form-label">Pilih File Excel</label>
+        <input type="file" name="file" required class="form-control">
+        </div>
+        <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary">Import</button>
+        </div>
+      </form>
+      </div>
+    </div>
+    </div>
   </div>
 @endsection
