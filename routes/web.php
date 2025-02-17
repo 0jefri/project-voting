@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,10 +21,10 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
     })->name('admin.dashboard');
 
     // Kelola Mahasiswa
-    Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('admin.mahasiswa.index');
-    Route::get('/mahasiswa/import', [MahasiswaController::class, 'import'])->name('admin.mahasiswa.import');
-    Route::get('/mahasiswa/create', [MahasiswaController::class, 'create'])->name('admin.mahasiswa.create');
-    Route::post('/mahasiswa/store', [MahasiswaController::class, 'store'])->name('admin.mahasiswa.store');
+    Route::get('/mahasiswa', [AdminController::class, 'index'])->name('admin.mahasiswa.index');
+    Route::get('/mahasiswa/import', [AdminController::class, 'import'])->name('admin.mahasiswa.import');
+    Route::get('/mahasiswa/create', [AdminController::class, 'create'])->name('admin.mahasiswa.create');
+    Route::post('/mahasiswa/store', [AdminController::class, 'store'])->name('admin.mahasiswa.store');
 });
 
 // Middleware untuk Mahasiswa
@@ -31,6 +32,8 @@ Route::middleware(['auth', 'can:mahasiswa'])->prefix('mahasiswa')->group(functio
     Route::get('/dashboard', function () {
         return view('mahasiswa.dashboard');
     })->name('mahasiswa.dashboard');
+
+    Route::get('/mahasiswa/pendaftaran', [MahasiswaController::class, 'create'])->name('mahasiswa.pendaftaran');
 });
 
 

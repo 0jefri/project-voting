@@ -30,6 +30,11 @@
       <a class="nav-link" href="{{ route(Auth::user()->role . '.mahasiswa.index') }}">Data Mahasiswa</a>
       </li>
     @endif
+        @if(Auth::user()->role === 'mahasiswa')
+      <li class="nav-item">
+      <a class="nav-link" href="{{ route(Auth::user()->role . '.pendaftaran') }}">Pendaftaran</a>
+      </li>
+    @endif
         <li class="nav-item">
         <form action="{{ route('logout') }}" method="POST" class="d-inline">
           @csrf
