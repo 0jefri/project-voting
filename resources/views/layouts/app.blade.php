@@ -59,49 +59,51 @@
     <div class="container">
       <a class="navbar-brand" href="#">
         <img src="{{ asset('images/logo.png') }}" alt="Logo" style="max-height: 40px;">
-      </a>
+    </a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav">
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto gap-2">
-          @auth
+        @auth
         <li class="nav-item">
-        <a class="nav-link" href="{{ route(Auth::user()->role . '.dashboard') }}">Dashboard</a>
+            <a class="nav-link" href="{{ route(Auth::user()->role . '.dashboard') }}">Dashboard</a>
         </li>
         @if(Auth::user()->role === 'admin')
-      <li class="nav-item">
-      <a class="nav-link" href="{{ route(Auth::user()->role . '.mahasiswa.index') }}">Data Mahasiswa</a>
-      </li>
-    @endif
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route(Auth::user()->role . '.mahasiswa.index') }}">Data Mahasiswa</a>
+        </li>
+        @endif
         @if(Auth::user()->role === 'mahasiswa')
-      <li class="nav-item">
-      <a class="nav-link" href="{{ route(Auth::user()->role . '.pendaftaran') }}">Pendaftaran</a>
-      </li>
-    @endif
+        <li class="nav-item">
+        <a class="nav-link" href="{{ route(Auth::user()->role . '.pendaftaran') }}">Pendaftaran</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{ route(Auth::user()->role . '.pendaftaran.kandidat') }}">Pendaftaran Kandidat</a>
+        </li>
+        @endif
         <li class="nav-item">
         <form action="{{ route('logout') }}" method="POST" class="d-inline">
-          @csrf
-          <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
+        @csrf
+        <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
         </form>
-        </li>
-      @else
-      <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+        /li>
+    @else
+    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
     @endauth
         </ul>
-      </div>
     </div>
-  </nav>
+    </div>
+</nav>
 
-  <div class="container mt-4">
+<div class="container mt-4">
     <div class="content-container">
-      @yield('content')
+    @yield('content')
     </div>
-  </div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
