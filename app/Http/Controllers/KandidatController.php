@@ -57,9 +57,9 @@ class KandidatController extends Controller
         $kandidat = Kandidat::create($data);
         Kandidat::updateRanking();
 
-        return redirect()->route('mahasiswa.pendaftaran.kandidat')
-        ->with('success', 'Pendaftaran kandidat berhasil!');
-        }
+        return redirect()->route('mahasiswa.pendaftaran')
+            ->with('success', 'Pendaftaran kandidat berhasil!');
+    }
 
     /**
      * Menampilkan detail kandidat tertentu.
