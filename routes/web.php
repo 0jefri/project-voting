@@ -37,7 +37,10 @@ Route::middleware(['auth', 'can:mahasiswa'])->prefix('mahasiswa')->group(functio
     // Pendaftaran Mahasiswa
     Route::get('/pendaftaran', [MahasiswaController::class, 'create'])->name('mahasiswa.pendaftaran');
 
-    // Pendaftaran Kandidat (FIXED ERROR)
-    Route::get('/pendaftaran/kandidat', [KandidatController::class, 'create'])->name('mahasiswa.pendaftaran.kandidat');
-    Route::post('/pendaftaran/kandidat/store', [KandidatController::class, 'store'])->name('mahasiswa.pendaftaran.kandidat.store');
+    // Pendaftaran Kandidat
+    Route::controller(KandidatController::class)->group(function () {
+        Route::get('/pendaftaran/kandidat', 'create')->name('mahasiswa.pendaftaran.kandidat');
+        Route::post('/pendaftaran/kandidat/store', 'store')->name('kandidat.store'); // 🛠 Pastikan nama sesuai
+    });
 });
+

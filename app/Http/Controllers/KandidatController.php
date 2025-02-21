@@ -9,26 +9,19 @@ use Illuminate\Support\Facades\Storage;
 
 class KandidatController extends Controller
 {
-    /**
-     * Menampilkan daftar kandidat.
-     */
     public function index()
     {
         $kandidat = Kandidat::with(['mahasiswa', 'wakil', 'votes'])->get();
         return response()->json($kandidat);
     }
 
-    /**
-     * Menampilkan form pendaftaran kandidat.
-     */
     public function create()
     {
-        return view('mahasiswa.pendaftaran');
-    }
+       $mahasiswa = DetailMahasiswa::all(); // Ambil semua data dari DetailMahasiswa
+    return view('mahasiswa.pendaftaran', compact('mahasiswa'));
+}
 
-    /**
-     * Menyimpan kandidat baru.
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -44,7 +37,6 @@ class KandidatController extends Controller
         ]);
 
         $data = $request->all();
-
         $mahasiswa = DetailMahasiswa::where('id_user', $request->id_user)->firstOrFail();
         $data['semester'] = $mahasiswa->semester;
 
@@ -57,22 +49,15 @@ class KandidatController extends Controller
         $kandidat = Kandidat::create($data);
         Kandidat::updateRanking();
 
-        return redirect()->route('mahasiswa.pendaftaran.kandidat')
-        ->with('success', 'Pendaftaran kandidat berhasil!');
-        }
+        return redirect()->route('mahasiswa.pendaftaran.kandidat')->with('success', 'Pendaftaran kandidat berhasil!');
+    }
 
-    /**
-     * Menampilkan detail kandidat tertentu.
-     */
     public function show($id)
     {
         $kandidat = Kandidat::with(['mahasiswa', 'wakil', 'votes'])->findOrFail($id);
         return response()->json($kandidat);
     }
 
-    /**
-     * Memperbarui data kandidat.
-     */
     public function update(Request $request, $id)
     {
         $kandidat = Kandidat::findOrFail($id);
@@ -83,13 +68,12 @@ class KandidatController extends Controller
         ]);
 
         $data = $request->all();
-
         $mahasiswa = DetailMahasiswa::where('id_user', $kandidat->id_user)->firstOrFail();
         $data['semester'] = $mahasiswa->semester;
 
         foreach (['transkrip_nilai', 'visi_misi', 'prestasi_akademik', 'surat_rekomendasi', 'keikutsertaan_organisasi', 'prestasi_non_akademik'] as $fileField) {
             if ($request->hasFile($fileField)) {
-                if ($kandidat->$fileField) {
+                if (!empty($kandidat->$fileField) && Storage::exists($kandidat->$fileField)) {
                     Storage::delete($kandidat->$fileField);
                 }
                 $data[$fileField] = $request->file($fileField)->store('kandidat_files');
@@ -99,18 +83,15 @@ class KandidatController extends Controller
         $kandidat->update($data);
         Kandidat::updateRanking();
 
-        return response()->json($kandidat);
+        return redirect()->route('mahasiswa.pendaftaran.kandidat')->with('success', 'Data kandidat berhasil diperbarui!');
     }
 
-    /**
-     * Menghapus kandidat.
-     */
     public function destroy($id)
     {
         $kandidat = Kandidat::findOrFail($id);
 
         foreach (['transkrip_nilai', 'visi_misi', 'prestasi_akademik', 'surat_rekomendasi', 'keikutsertaan_organisasi', 'prestasi_non_akademik'] as $fileField) {
-            if ($kandidat->$fileField) {
+            if (!empty($kandidat->$fileField) && Storage::exists($kandidat->$fileField)) {
                 Storage::delete($kandidat->$fileField);
             }
         }
@@ -118,6 +99,6 @@ class KandidatController extends Controller
         $kandidat->delete();
         Kandidat::updateRanking();
 
-        return response()->json(['message' => 'Kandidat berhasil dihapus']);
+        return redirect()->route('mahasiswa.pendaftaran.kandidat')->with('success', 'Kandidat berhasil dihapus!');
     }
 }
