@@ -19,6 +19,14 @@ class KandidatController extends Controller
     }
 
     /**
+     * Menampilkan form pendaftaran kandidat.
+     */
+    public function create()
+    {
+        return view('mahasiswa.pendaftaran');
+    }
+
+    /**
      * Menyimpan kandidat baru.
      */
     public function store(Request $request)
@@ -49,8 +57,9 @@ class KandidatController extends Controller
         $kandidat = Kandidat::create($data);
         Kandidat::updateRanking();
 
-        return response()->json($kandidat, 201);
-    }
+        return redirect()->route('mahasiswa.pendaftaran.kandidat')
+        ->with('success', 'Pendaftaran kandidat berhasil!');
+        }
 
     /**
      * Menampilkan detail kandidat tertentu.

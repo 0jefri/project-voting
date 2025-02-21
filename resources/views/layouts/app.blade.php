@@ -88,7 +88,7 @@
         @csrf
         <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
         </form>
-        /li>
+
     @else
     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
     @endauth

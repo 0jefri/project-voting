@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\MahasiswaController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\KandidatController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,7 +34,10 @@ Route::middleware(['auth', 'can:mahasiswa'])->prefix('mahasiswa')->group(functio
         return view('mahasiswa.dashboard');
     })->name('mahasiswa.dashboard');
 
-    Route::get('/mahasiswa/pendaftaran', [MahasiswaController::class, 'create'])->name('mahasiswa.pendaftaran');
+    // Pendaftaran Mahasiswa
+    Route::get('/pendaftaran', [MahasiswaController::class, 'create'])->name('mahasiswa.pendaftaran');
+
+    // Pendaftaran Kandidat (FIXED ERROR)
+    Route::get('/pendaftaran/kandidat', [KandidatController::class, 'create'])->name('mahasiswa.pendaftaran.kandidat');
+    Route::post('/pendaftaran/kandidat/store', [KandidatController::class, 'store'])->name('mahasiswa.pendaftaran.kandidat.store');
 });
-
-
