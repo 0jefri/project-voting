@@ -23,9 +23,8 @@
 
     /* Efek hover untuk navbar link */
     .navbar-nav .nav-link:hover {
-      color: #fff !important;
-      /* Warna putih pada hover */
-      background-color: #007bff;
+      /* border: 1px solid #3782fa; */
+      color: #3782fa !important;
       /* Background biru pada hover */
       transform: translateY(-3px);
       /* Efek timbul */

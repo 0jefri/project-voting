@@ -13,21 +13,21 @@ class MahasiswaImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         $user = User::create([
-            'username' => $row['NAMA MAHASISWA'], // Bisa dibuat lebih unik jika perlu
-            'password' => Hash::make($row['NIM']),
-            'name' => $row['NAMA MAHASISWA'],
+            'username' => $row['nama'], // Bisa dibuat lebih unik jika perlu
+            'password' => Hash::make($row['nim']),
+            'name' => $row['nama'],
             'role' => 'mahasiswa',
         ]);
 
         return new DetailMahasiswa([
             'user_id' => $user->id,
-            'nim' => $row['NIM'],
-            'name' => $row['NAMA MAHASISWA'],
-            'prodi' => $row['PROGRAM STUDI'],
-            'email' => $row['EMAIL'],
-            'phone' => $row['PHONE'],
-            'semester' => $row['SEMESTER'],
-            'sosial_media' => $row['SOSIAL MEDIA'] ?? null,
+            'nim' => $row['nim'],
+            'name' => $row['nama'],
+            'prodi' => $row['program_studi'],
+            'email' => $row['email'],
+            'phone' => $row['phone'],
+            'semester' => $row['semester'],
+            'sosial_media' => $row['sosial_media'] ?? null,
         ]);
     }
 }
