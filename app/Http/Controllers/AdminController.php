@@ -24,20 +24,26 @@ class AdminController extends Controller
 
     public function import(Request $request)
     {
-        if ($request->isMethod('get')) {
-            // Jika request GET, tampilkan halaman import
-            return view('admin.mahasiswa.import');
-        }
-
-        // Jika request POST, proses file import
         $request->validate([
             'file' => 'required|mimes:xlsx,xls,csv',
         ]);
 
         Excel::import(new MahasiswaImport, $request->file('file'));
 
-        return redirect()->route('admin.mahasiswa.import')->with('success', 'Data Mahasiswa berhasil diimport!');
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data Mahasiswa berhasil diimport!');
     }
+
+    public function processImport(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        Excel::import(new MahasiswaImport, $request->file('file'));
+
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data Mahasiswa berhasil diimport!');
+    }
+
 
 
 

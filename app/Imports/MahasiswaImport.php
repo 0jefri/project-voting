@@ -12,23 +12,29 @@ class MahasiswaImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
+        $namaMahasiswa = $row['NAMA MAHASISWA'] ?? $row['nama_mahasiswa'] ?? null;
+        $nim = $row['NIM'] ?? $row['nim'] ?? null;
+        $prodi = $row['PROGRAM STUDI'] ?? $row['program_studi'] ?? null;
+
+        if (!$namaMahasiswa || !$nim || !$prodi) {
+            return null; // Lewati jika ada data yang kosong
+        }
+
         $user = User::create([
-            'username' => $row['nama'], // Bisa dibuat lebih unik jika perlu
-            'password' => Hash::make($row['nim']),
-            'name' => $row['nama'],
+            'username' => strtolower(str_replace(' ', '', $namaMahasiswa)),
+            'password' => Hash::make($nim),
+            'name' => $namaMahasiswa,
             'role' => 'mahasiswa',
         ]);
 
-        return new DetailMahasiswa([
+        DetailMahasiswa::create([
             'user_id' => $user->id,
-            'nim' => $row['nim'],
-            'name' => $row['nama'],
-            'prodi' => $row['program_studi'],
-            'email' => $row['email'],
-            'phone' => $row['phone'],
-            'semester' => $row['semester'],
-            'sosial_media' => $row['sosial_media'] ?? null,
+            'nim' => $nim,
+            'name' => $namaMahasiswa,
+            'prodi' => $prodi,
         ]);
-    }
-}
 
+        return $user;
+    }
+
+}

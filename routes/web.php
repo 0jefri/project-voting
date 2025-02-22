@@ -23,6 +23,7 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
     // Kelola Mahasiswa
     Route::get('/mahasiswa', [AdminController::class, 'index'])->name('admin.mahasiswa.index');
     Route::get('/mahasiswa/import', [AdminController::class, 'import'])->name('admin.mahasiswa.import');
+    Route::post('/mahasiswa/import', [AdminController::class, 'processImport'])->name('admin.mahasiswa.import.process');
     Route::get('/mahasiswa/create', [AdminController::class, 'create'])->name('admin.mahasiswa.create');
     Route::post('/mahasiswa/store', [AdminController::class, 'store'])->name('admin.mahasiswa.store');
 });
