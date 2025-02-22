@@ -23,7 +23,7 @@
 
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
-    <thead class="table-success" style="background-color: #d4edda;">
+    <thead class="table-success">
       <tr>
       <th>No</th>
       <th>NIM</th>
@@ -35,7 +35,7 @@
       @foreach($mahasiswa as $index => $mhs)
       @isset($mhs->detailMahasiswa)
       <tr>
-      <td>{{ $index + 1 }}</td>
+      <td>{{ $loop->iteration + ($mahasiswa->currentPage() - 1) * $mahasiswa->perPage() }}</td>
       <td>{{ $mhs->detailMahasiswa->nim }}</td>
       <td>{{ $mhs->detailMahasiswa->name }}</td>
       <td>{{ $mhs->detailMahasiswa->prodi }}</td>
@@ -43,8 +43,13 @@
     @endisset
     @endforeach
     </tbody>
-
     </table>
+  </div>
+
+  <div class="d-flex justify-content-center mt-3">
+    <nav aria-label="Page navigation">
+    {{ $mahasiswa->links('vendor.pagination.bootstrap-5') }}
+    </nav>
   </div>
 
   <!-- Modal Import Mahasiswa -->

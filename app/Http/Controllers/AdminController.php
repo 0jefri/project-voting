@@ -13,7 +13,10 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $mahasiswa = User::where('role', 'mahasiswa')->with('detailMahasiswa')->get();
+        $mahasiswa = User::where('role', 'mahasiswa')
+            ->with('detailMahasiswa')
+            ->paginate(10); // Tambahkan pagination di sini
+
         return view('admin.mahasiswa.index', compact('mahasiswa'));
     }
 
