@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title')</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
   <style>
     /* Navbar dengan shadow dan transparan */
     .navbar {
@@ -80,12 +81,36 @@
       <a class="nav-link" href="{{ route(Auth::user()->role . '.pendaftaran') }}">Pendaftaran</a>
       </li>
     @endif
+        <!-- Tombol Logout dengan Modal -->
         <li class="nav-item">
-        <form action="{{ route('logout') }}" method="POST" class="d-inline">
-          @csrf
-          <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
-        </form>
+        <button type="button" class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1"
+          data-bs-toggle="modal" data-bs-target="#logoutModal">
+          <i class="bi bi-box-arrow-right"></i>
+        </button>
         </li>
+
+        <!-- Modal Konfirmasi Logout -->
+        <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Apakah kamu yakin ingin logout?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+          </div>
+          </div>
+        </div>
+        </div>
+
       @else
       <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
     @endauth
