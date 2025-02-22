@@ -10,7 +10,7 @@ class DetailMahasiswa extends Model
     use HasFactory;
 
     protected $table = 'detail_mahasiswa';
-    protected $fillable = ['user_id', 'nim', 'name', 'prodi', 'email', 'phone', 'semester', 'sosial_media'];
+    protected $fillable = ['user_id', 'nim', 'name', 'prodi'];
 
     public function user()
     {

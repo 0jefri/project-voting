@@ -49,9 +49,6 @@ class AdminController extends Controller
             'name' => 'required',
             'nim' => 'required|unique:detail_mahasiswa',
             'prodi' => 'required',
-            'email' => 'required|email|unique:detail_mahasiswa',
-            'phone' => 'required',
-            'semester' => 'required|integer',
         ]);
 
         $user = User::create([
@@ -66,10 +63,6 @@ class AdminController extends Controller
             'nim' => $request->nim,
             'name' => $request->name,
             'prodi' => $request->prodi,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'semester' => $request->semester,
-            'sosial_media' => $request->sosial_media,
         ]);
 
         return redirect()->route('admin.mahasiswa.index')->with('success', 'Mahasiswa berhasil ditambahkan');

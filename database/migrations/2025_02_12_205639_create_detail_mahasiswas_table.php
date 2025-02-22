@@ -13,10 +13,6 @@ return new class extends Migration {
             $table->bigInteger('nim')->unique();
             $table->string('name');
             $table->string('prodi');
-            $table->string('email')->unique();
-            $table->string('phone');
-            $table->integer('semester');
-            $table->string('sosial_media')->nullable();
             $table->timestamps();
         });
     }

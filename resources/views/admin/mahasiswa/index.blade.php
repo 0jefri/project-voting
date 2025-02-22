@@ -25,28 +25,25 @@
     <table class="table table-bordered table-hover">
     <thead class="table-success" style="background-color: #d4edda;">
       <tr>
+      <th>No</th>
       <th>NIM</th>
       <th>Nama</th>
       <th>Program Studi</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th>Semester</th>
-      <th>Sosial Media</th>
       </tr>
     </thead>
     <tbody>
-      @foreach($mahasiswa as $mhs)
+      @foreach($mahasiswa as $index => $mhs)
+      @isset($mhs->detailMahasiswa)
       <tr>
+      <td>{{ $index + 1 }}</td>
       <td>{{ $mhs->detailMahasiswa->nim }}</td>
       <td>{{ $mhs->detailMahasiswa->name }}</td>
       <td>{{ $mhs->detailMahasiswa->prodi }}</td>
-      <td>{{ $mhs->detailMahasiswa->email }}</td>
-      <td>{{ $mhs->detailMahasiswa->phone }}</td>
-      <td>{{ $mhs->detailMahasiswa->semester }}</td>
-      <td>{{ $mhs->detailMahasiswa->sosial_media }}</td>
       </tr>
+    @endisset
     @endforeach
     </tbody>
+
     </table>
   </div>
 

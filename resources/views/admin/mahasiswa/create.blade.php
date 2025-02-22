@@ -37,22 +37,6 @@
     <label>Program Studi</label>
     <input type="text" name="prodi" class="form-control" required>
     </div>
-    <div class="mb-3">
-    <label>Email</label>
-    <input type="email" name="email" class="form-control" required>
-    </div>
-    <div class="mb-3">
-    <label>No. HP</label>
-    <input type="text" name="phone" class="form-control" required>
-    </div>
-    <div class="mb-3">
-    <label>Semester</label>
-    <input type="number" name="semester" class="form-control" required>
-    </div>
-    <div class="mb-3">
-    <label>Sosial Media</label>
-    <input type="text" name="sosial_media" class="form-control">
-    </div>
     <button type="submit" class="btn btn-primary">Simpan</button>
   </form>
 @endsection
