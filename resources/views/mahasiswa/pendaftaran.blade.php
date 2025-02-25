@@ -3,6 +3,94 @@
 @section('title', 'Pendaftaran Kandidat')
 
 @section('content')
-  <h2>Ini halaman pendaftaran kandidat</h2>
-  <!-- <p>Selamat datang, {{ Auth::user()->name }}!</p> -->
+    <div class="container mt-4">
+        <div class="card shadow-sm p-4">
+            <h2 class="mb-4 text-center">Pendaftaran Kandidat</h2>
+            <form action="{{ route('mahasiswa.pendaftaran') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <!-- Mengambil Data Mahasiswa dari Database -->
+                @php
+                    $mahasiswa = \App\Models\User::where('role', 'mahasiswa')->get();
+                @endphp
+
+                <!-- Pilihan Ketua dan Wakil Ketua -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="id_user" class="form-label">Ketua</label>
+                        <select name="id_user" id="id_user" class="form-select" required>
+                            <option value="">Pilih Ketua</option>
+                            @foreach($mahasiswa as $mhs)
+                                <option value="{{ $mhs->id }}">{{ $mhs->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="wakil_ketua" class="form-label">Wakil Ketua</label>
+                        <select name="wakil_ketua" id="wakil_ketua" class="form-select" required>
+                            <option value="">Pilih Wakil Ketua</option>
+                            @foreach($mahasiswa as $mhs)
+                                <option value="{{ $mhs->id }}">{{ $mhs->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Upload Berkas -->
+                <div class="row">
+                    @foreach(['transkrip_nilai' => 'Transkrip Nilai', 'visi_misi' => 'Visi Misi', 'prestasi_akademik' => 'Prestasi Akademik', 'surat_rekomendasi' => 'Surat Rekomendasi', 'keikutsertaan_organisasi' => 'Keikutsertaan dalam Organisasi', 'prestasi_non_akademik' => 'Prestasi Non Akademik'] as $name => $label)
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ $label }} (PDF)</label>
+                            <input type="file" name="{{ $name }}" class="form-control" accept=".pdf" required>
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Pilihan Usia -->
+                <div class="mb-3">
+                    <label class="form-label">Usia</label>
+                    <select name="usia" class="form-select" required>
+                        <option value="">Pilih Usia</option>
+                        <option value="1">19-24</option>
+                        <option value="2">>24</option>
+                        <option value="3">&lt;19</option>
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary w-50">Daftar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Prevent Ketua dan Wakil Ketua being the same -->
+    <script>
+        document.getElementById('id_user').addEventListener('change', function () {
+            let ketua = this.value;
+            let wakilKetua = document.getElementById('wakil_ketua');
+            let options = wakilKetua.getElementsByTagName('option');
+
+            for (let i = 0; i < options.length; i++) {
+                options[i].disabled = false;
+                if (options[i].value === ketua && ketua !== '') {
+                    options[i].disabled = true;
+                }
+            }
+        });
+
+        document.getElementById('wakil_ketua').addEventListener('change', function () {
+            let wakilKetua = this.value;
+            let ketua = document.getElementById('id_user');
+            let options = ketua.getElementsByTagName('option');
+
+            for (let i = 0; i < options.length; i++) {
+                options[i].disabled = false;
+                if (options[i].value === wakilKetua && wakilKetua !== '') {
+                    options[i].disabled = true;
+                }
+            }
+        });
+    </script>
 @endsection
