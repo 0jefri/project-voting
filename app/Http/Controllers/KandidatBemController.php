@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Storage;
 class KandidatBemController extends Controller
 {
 
+    public function index()
+    {
+        $kandidat = \App\Models\KandidatBem::with(['ketua', 'wakilKetua'])->get();
+        return view('admin.mahasiswa.kandidat', compact('kandidat'));
+    }
+
     public function create()
     {
         $mahasiswa = \App\Models\User::where('role', 'mahasiswa')
@@ -20,6 +26,13 @@ class KandidatBemController extends Controller
 
     public function store(Request $request)
     {
+        // Cek apakah mahasiswa sudah terdaftar sebagai kandidat
+        $sudahTerdaftar = KandidatBem::where('ketua_id', auth()->id())->exists();
+
+        if ($sudahTerdaftar) {
+            return redirect()->back()->with('error', 'Anda sudah terdaftar sebagai kandidat dan tidak bisa mendaftar lagi.');
+        }
+
         $request->validate([
             'wakil_ketua' => 'required|exists:users,id|different:id_user',
             'transkrip_nilai' => 'required|mimes:pdf|max:2048',
@@ -54,5 +67,6 @@ class KandidatBemController extends Controller
 
         return redirect()->back()->with('success', 'Pendaftaran berhasil!');
     }
+
 }
 

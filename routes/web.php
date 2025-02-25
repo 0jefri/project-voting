@@ -27,6 +27,10 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
     Route::post('/mahasiswa/import', [AdminController::class, 'processImport'])->name('admin.mahasiswa.import.process');
     Route::get('/mahasiswa/create', [AdminController::class, 'create'])->name('admin.mahasiswa.create');
     Route::post('/mahasiswa/store', [AdminController::class, 'store'])->name('admin.mahasiswa.store');
+
+    //kelola kandidat
+    Route::get('/mahasiswa/kandidat', [KandidatBemController::class, 'index'])
+        ->name('admin.mahasiswa.kandidat');
 });
 
 // Middleware untuk Mahasiswa

@@ -76,6 +76,11 @@
       <a class="nav-link" href="{{ route(Auth::user()->role . '.mahasiswa.index') }}">Data Mahasiswa</a>
       </li>
     @endif
+        @if(Auth::check() && Auth::user()->role === 'admin')
+      <li class="nav-item">
+      <a class="nav-link" href="{{ route('admin.mahasiswa.kandidat') }}">Daftar Kandidat</a>
+      </li>
+    @endif
         @if(Auth::check() && Auth::user()->role === 'mahasiswa')
       <li class="nav-item">
       <a class="nav-link" href="{{ route('mahasiswa.pendaftaran') }}">Pendaftaran</a>
