@@ -1,14 +1,16 @@
 <?php
 
 use App\Http\Controllers\KandidatBemController;
-use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
-    return view('welcome');
+    Session::flush(); // Hapus semua sesi pengguna
+    return redirect()->route('login'); // Redirect ke halaman login
 });
+
 
 // Login & Logout
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
