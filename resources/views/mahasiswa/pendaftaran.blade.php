@@ -17,13 +17,9 @@
                 <!-- Pilihan Ketua dan Wakil Ketua -->
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="id_user" class="form-label">Ketua</label>
-                        <select name="id_user" id="id_user" class="form-select" required>
-                            <option value="">Pilih Ketua</option>
-                            @foreach($mahasiswa as $mhs)
-                                <option value="{{ $mhs->id }}">{{ $mhs->name }}</option>
-                            @endforeach
-                        </select>
+                        <label class="form-label">Ketua</label>
+                        <input type="text" class="form-control" value="{{ Auth::user()->name }}" readonly>
+                        <input type="hidden" name="id_user" value="{{ Auth::id() }}">
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -31,7 +27,9 @@
                         <select name="wakil_ketua" id="wakil_ketua" class="form-select" required>
                             <option value="">Pilih Wakil Ketua</option>
                             @foreach($mahasiswa as $mhs)
-                                <option value="{{ $mhs->id }}">{{ $mhs->name }}</option>
+                                @if($mhs->id !== Auth::id())
+                                    <option value="{{ $mhs->id }}">{{ $mhs->name }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -64,6 +62,25 @@
             </form>
         </div>
     </div>
+
+    <!-- Modal Notifikasi Pendaftaran Berhasil -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Pendaftaran Berhasil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Selamat! Anda telah berhasil mendaftar sebagai kandidat Ketua BEM.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Prevent Ketua dan Wakil Ketua being the same -->
     <script>

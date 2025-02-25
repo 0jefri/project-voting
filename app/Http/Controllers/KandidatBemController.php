@@ -11,14 +11,16 @@ class KandidatBemController extends Controller
 
     public function create()
     {
-        $mahasiswa = \App\Models\User::where('role', 'mahasiswa')->get();
+        $mahasiswa = \App\Models\User::where('role', 'mahasiswa')
+            ->where('id', '!=', auth()->id()) // Exclude user yang login
+            ->get();
         return view('mahasiswa.pendaftaran', compact('mahasiswa'));
     }
+
 
     public function store(Request $request)
     {
         $request->validate([
-            'id_user' => 'required|exists:users,id',
             'wakil_ketua' => 'required|exists:users,id|different:id_user',
             'transkrip_nilai' => 'required|mimes:pdf|max:2048',
             'visi_misi' => 'required|mimes:pdf|max:2048',
