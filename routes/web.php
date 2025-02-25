@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KandidatBemController;
 use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -34,7 +35,11 @@ Route::middleware(['auth', 'can:mahasiswa'])->prefix('mahasiswa')->group(functio
         return view('mahasiswa.dashboard');
     })->name('mahasiswa.dashboard');
 
-    Route::get('/mahasiswa/pendaftaran', [MahasiswaController::class, 'create'])->name('mahasiswa.pendaftaran');
+    Route::get('/mahasiswa/pendaftaran', [KandidatBemController::class, 'create'])
+        ->name('mahasiswa.pendaftaran');
+
+    Route::post('/mahasiswa/pendaftaran', [KandidatBemController::class, 'store'])
+        ->name('mahasiswa.pendaftaran');
 });
 
 

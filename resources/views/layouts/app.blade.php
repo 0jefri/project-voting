@@ -76,11 +76,12 @@
       <a class="nav-link" href="{{ route(Auth::user()->role . '.mahasiswa.index') }}">Data Mahasiswa</a>
       </li>
     @endif
-        @if(Auth::user()->role === 'mahasiswa')
+        @if(Auth::check() && Auth::user()->role === 'mahasiswa')
       <li class="nav-item">
-      <a class="nav-link" href="{{ route(Auth::user()->role . '.pendaftaran') }}">Pendaftaran</a>
+      <a class="nav-link" href="{{ route('mahasiswa.pendaftaran') }}">Pendaftaran</a>
       </li>
     @endif
+
         <!-- Tombol Logout dengan Modal -->
         <li class="nav-item">
         <button type="button" class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1"
