@@ -49,18 +49,20 @@
                         <a href="{{ asset('storage/' . $kdt->prestasi_non_akademik) }}" target="_blank">Non-Akademik</a>
                     </td>
                     <td>
-                        <!-- Tombol Edit -->
-                        <a href="{{ route('admin.kandidat.edit', $kdt->id) }}" class="btn btn-warning btn-sm">Edit</a>
-
-                        <!-- Tombol Hapus -->
-                        <form action="{{ route('admin.kandidat.destroy', $kdt->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
-                        </form>
-
-                        <!-- Tombol Penilaian -->
-                        <a href="{{ route('admin.kandidat.penilaian', $kdt->id) }}" class="btn btn-primary btn-sm">Penilaian</a>
+                        <div class="d-flex gap-2">
+                            <!-- Tombol Edit -->
+                            <a href="{{ route('admin.kandidat.edit', $kdt->id) }}" class="btn btn-warning btn-sm">Edit</a>
+    
+                            <!-- Tombol Hapus -->
+                            <form action="{{ route('admin.kandidat.destroy', $kdt->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                            </form>
+    
+                            <!-- Tombol Penilaian -->
+                            <a href="{{ route('admin.kandidat.penilaian', $kdt->id) }}" class="btn btn-primary btn-sm">Penilaian</a>
+                        </div>
                     </td>
                 </tr>
                 @empty
