@@ -68,5 +68,32 @@ class KandidatBemController extends Controller
         return redirect()->back()->with('success', 'Pendaftaran berhasil!');
     }
 
+    public function edit($id)
+    {
+        $kandidat = KandidatBem::findOrFail($id);
+        return view('admin.kandidat.edit', compact('kandidat'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,approved,rejected',
+        ]);
+
+        $kandidat = KandidatBem::findOrFail($id);
+        $kandidat->update(['status' => $request->status]);
+
+        return redirect()->route('admin.mahasiswa.kandidat')->with('success', 'Status berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $kandidat = KandidatBem::findOrFail($id);
+        $kandidat->delete();
+
+        return redirect()->route('admin.mahasiswa.kandidat')->with('success', 'Kandidat berhasil dihapus.');
+    }
+
+
 }
 

@@ -18,6 +18,8 @@ return new class extends Migration {
             $table->string('keikutsertaan_organisasi');
             $table->string('prestasi_non_akademik');
             $table->enum('usia', ['1', '2', '3']); // 1: 19-24, 2: >24, 3: <19
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+
             $table->timestamps();
         });
     }

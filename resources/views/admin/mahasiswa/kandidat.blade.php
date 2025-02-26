@@ -14,7 +14,9 @@
                     <th>Ketua</th>
                     <th>Wakil Ketua</th>
                     <th>Usia</th>
+                    <th>Status</th>
                     <th>Dokumen</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +32,15 @@
                         @endif
                     </td>
                     <td>
+                        <span class="badge 
+                            @if($kdt->status == 'pending') bg-warning 
+                            @elseif($kdt->status == 'approved') bg-success 
+                            @else bg-danger 
+                            @endif">
+                            {{ ucfirst($kdt->status) }}
+                        </span>
+                    </td>
+                    <td>
                         <a href="{{ asset('storage/' . $kdt->transkrip_nilai) }}" target="_blank">Transkrip</a> |
                         <a href="{{ asset('storage/' . $kdt->visi_misi) }}" target="_blank">Visi Misi</a> |
                         <a href="{{ asset('storage/' . $kdt->prestasi_akademik) }}" target="_blank">Akademik</a> |
@@ -37,10 +48,24 @@
                         <a href="{{ asset('storage/' . $kdt->keikutsertaan_organisasi) }}" target="_blank">Organisasi</a> |
                         <a href="{{ asset('storage/' . $kdt->prestasi_non_akademik) }}" target="_blank">Non-Akademik</a>
                     </td>
+                    <td>
+                        <!-- Tombol Edit -->
+                        <a href="{{ route('admin.kandidat.edit', $kdt->id) }}" class="btn btn-warning btn-sm">Edit</a>
+
+                        <!-- Tombol Hapus -->
+                        <form action="{{ route('admin.kandidat.destroy', $kdt->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                        </form>
+
+                        <!-- Tombol Penilaian -->
+                        <a href="{{ route('admin.kandidat.penilaian', $kdt->id) }}" class="btn btn-primary btn-sm">Penilaian</a>
+                    </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="5" class="text-center">Belum ada kandidat yang terdaftar.</td>
+                    <td colspan="7" class="text-center">Belum ada kandidat yang terdaftar.</td>
                 </tr>
                 @endforelse
             </tbody>

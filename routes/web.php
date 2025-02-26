@@ -33,6 +33,11 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
     //kelola kandidat
     Route::get('/mahasiswa/kandidat', [KandidatBemController::class, 'index'])
         ->name('admin.mahasiswa.kandidat');
+
+    Route::get('/kandidat/edit/{id}', [KandidatBemController::class, 'edit'])->name('admin.kandidat.edit');
+    Route::patch('/kandidat/update/{id}', [KandidatBemController::class, 'update'])->name('admin.kandidat.update');
+    Route::delete('/kandidat/delete/{id}', [KandidatBemController::class, 'destroy'])->name('admin.kandidat.destroy');
+    Route::get('/kandidat/penilaian/{id}', [KandidatBemController::class, 'penilaian'])->name('admin.kandidat.penilaian');
 });
 
 // Middleware untuk Mahasiswa

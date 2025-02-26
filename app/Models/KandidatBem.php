@@ -19,7 +19,8 @@ class KandidatBem extends Model
         'surat_rekomendasi',
         'keikutsertaan_organisasi',
         'prestasi_non_akademik',
-        'usia'
+        'usia',
+        'status'
     ];
 
     // Relasi ke User (Ketua)
