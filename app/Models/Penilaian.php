@@ -16,6 +16,7 @@ class Penilaian extends Model
         // Akademik
         'ipk',
         'visi_misi',
+        'semester',
         'prestasi_akademik',
         // Non Akademik
         'surat_rekomendasi',
@@ -34,6 +35,7 @@ class Penilaian extends Model
         return $this->belongsTo(KandidatBem::class, 'kandidat_id');
     }
 }
+
 
 
 

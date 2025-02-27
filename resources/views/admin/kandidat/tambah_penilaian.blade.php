@@ -11,7 +11,7 @@
       @csrf
       <input type="hidden" name="kandidat_id" value="{{ $kandidat->id }}">
 
-      @foreach(['ipk' => 'IPK', 'visi_misi' => 'Visi & Misi', 'prestasi_akademik' => 'Prestasi Akademik', 'surat_rekomendasi' => 'Surat Rekomendasi', 'usia' => 'Usia', 'keikutsertaan_organisasi' => 'Keikutsertaan dalam Organisasi', 'prestasi_non_akademik' => 'Prestasi Non Akademik', 'kepemimpinan' => 'Kepemimpinan', 'integritas' => 'Integritas', 'loyalitas' => 'Loyalitas', 'kerjasama' => 'Kerjasama'] as $name => $label)
+      @foreach(['ipk' => 'IPK', 'visi_misi' => 'Visi & Misi', 'semester' => 'Semester', 'prestasi_akademik' => 'Prestasi Akademik', 'surat_rekomendasi' => 'Surat Rekomendasi', 'usia' => 'Usia', 'keikutsertaan_organisasi' => 'Keikutsertaan dalam Organisasi', 'prestasi_non_akademik' => 'Prestasi Non Akademik', 'kepemimpinan' => 'Kepemimpinan', 'integritas' => 'Integritas', 'loyalitas' => 'Loyalitas', 'kerjasama' => 'Kerjasama'] as $name => $label)
       <div class="mb-3">
       <label class="form-label">{{ $label }} (1-5)</label>
       <input type="number" name="{{ $name }}" class="form-control" min="1" max="5" required>
@@ -25,4 +25,32 @@
     </form>
     </div>
   </div>
+
+  @if(session('success'))
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+    successModal.show();
+    });
+    </script>
+  @endif
+
+  <!-- Modal Notifikasi Penilaian Berhasil -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="successModalLabel">Penilaian Berhasil</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      Penilaian kandidat telah berhasil disimpan!
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+    </div>
+  </div>
+
 @endsection

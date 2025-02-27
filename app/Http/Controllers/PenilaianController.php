@@ -27,6 +27,7 @@ class PenilaianController extends Controller
             'kandidat_id' => 'required|exists:kandidat_bem,id',
             'ipk' => 'required|integer|min:1|max:5',
             'visi_misi' => 'required|integer|min:1|max:5',
+            'semester' => 'required|integer|min:1|max:5',
             'prestasi_akademik' => 'required|integer|min:1|max:5',
             'surat_rekomendasi' => 'required|integer|min:1|max:5',
             'usia' => 'required|integer|min:1|max:5',
@@ -40,8 +41,9 @@ class PenilaianController extends Controller
 
         Penilaian::create($request->all());
 
-        return redirect()->route('admin.penilaian.index')->with('success', 'Penilaian berhasil ditambahkan!');
+        return redirect()->back()->with('success', 'Penilaian berhasil ditambahkan!');
     }
+
 
 }
 
