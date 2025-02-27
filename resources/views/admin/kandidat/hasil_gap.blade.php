@@ -7,9 +7,10 @@
     <div class="card shadow-sm p-4">
     <h2 class="mb-4 text-center">Hasil Perhitungan GAP</h2>
 
-    <table class="table table-striped">
-      <thead class="table-dark">
-      <tr>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+      <thead class="table-success">
+        <tr>
         <th>No</th>
         <th>Kandidat</th>
         <th>IPK</th>
@@ -24,12 +25,12 @@
         <th>Integritas</th>
         <th>Loyalitas</th>
         <th>Kerjasama</th>
-      </tr>
+        </tr>
       </thead>
       <tbody>
-      @foreach($hasil as $index => $gap)
+        @foreach($hasil as $index => $gap)
       <tr>
-      <td>{{ $index + 1 }}</td>
+      <td>{{ $loop->iteration }}</td>
       <td>{{ $gap['kandidat'] }}</td>
       @foreach($gap as $key => $value)
       @if($key !== 'kandidat')
@@ -39,7 +40,8 @@
       </tr>
     @endforeach
       </tbody>
-    </table>
+      </table>
+    </div>
     </div>
   </div>
 @endsection
