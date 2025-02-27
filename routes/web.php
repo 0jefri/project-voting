@@ -43,6 +43,10 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
     Route::get('/penilaian', [PenilaianController::class, 'index'])->name('admin.penilaian.index');
     Route::get('/penilaian/{id}', [PenilaianController::class, 'create'])->name('admin.kandidat.penilaian');
     Route::post('/penilaian/store', [PenilaianController::class, 'store'])->name('admin.penilaian.store');
+
+    Route::get('/admin/kandidat/hasil-gap', [PenilaianController::class, 'hitungGAP'])->name('admin.kandidat.hasil_gap');
+    Route::get('/admin/kandidat/hasil-penilaian', [PenilaianController::class, 'hitungCF_SF'])->name('admin.kandidat.hasil_penilaian');
+
 });
 
 

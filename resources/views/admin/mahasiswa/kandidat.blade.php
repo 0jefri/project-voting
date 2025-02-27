@@ -5,7 +5,18 @@
 @section('content')
 <div class="container mt-4">
     <div class="card shadow-sm p-4">
-        <h2 class="mb-4 text-center">Daftar Kandidat BEM</h2>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0">Daftar Kandidat BEM</h2>
+            
+            <div>
+                <a href="{{ route('admin.kandidat.hasil_gap') }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-graph-up"></i> Hasil Perhitungan GAP
+                </a>
+                <a href="{{ route('admin.kandidat.hasil_penilaian') }}" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-trophy"></i> Hasil Penilaian Kandidat
+                </a>
+            </div>
+        </div>
 
         <table class="table table-striped">
             <thead class="table-dark">
