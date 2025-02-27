@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\KandidatBemController;
+use App\Http\Controllers\PenilaianController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
@@ -37,8 +38,13 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
     Route::get('/kandidat/edit/{id}', [KandidatBemController::class, 'edit'])->name('admin.kandidat.edit');
     Route::patch('/kandidat/update/{id}', [KandidatBemController::class, 'update'])->name('admin.kandidat.update');
     Route::delete('/kandidat/delete/{id}', [KandidatBemController::class, 'destroy'])->name('admin.kandidat.destroy');
-    Route::get('/kandidat/penilaian/{id}', [KandidatBemController::class, 'penilaian'])->name('admin.kandidat.penilaian');
+
+    //penilaian
+    Route::get('/penilaian', [PenilaianController::class, 'index'])->name('admin.penilaian.index');
+    Route::get('/penilaian/{id}', [PenilaianController::class, 'create'])->name('admin.kandidat.penilaian');
+    Route::post('/penilaian/store', [PenilaianController::class, 'store'])->name('admin.penilaian.store');
 });
+
 
 // Middleware untuk Mahasiswa
 Route::middleware(['auth', 'can:mahasiswa'])->prefix('mahasiswa')->group(function () {
