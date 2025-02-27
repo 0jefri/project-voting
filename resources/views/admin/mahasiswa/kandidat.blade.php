@@ -59,16 +59,22 @@
                             <a href="{{ asset('storage/' . $kdt->prestasi_non_akademik) }}" target="_blank">Non-Akademik</a>
                         </td>
                         <td>
-                            <div class="d-flex gap-2">
-                                <a href="{{ route('admin.kandidat.edit', $kdt->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                <form action="{{ route('admin.kandidat.destroy', $kdt->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
-                                </form>
-                                <a href="{{ route('admin.kandidat.penilaian', $kdt->id) }}" class="btn btn-primary btn-sm">Penilaian</a>
-                            </div>
-                        </td>
+    <div class="d-flex gap-2">
+        <a href="{{ route('admin.kandidat.edit', $kdt->id) }}" class="btn btn-warning btn-sm">Edit</a>
+
+        <form action="{{ route('admin.kandidat.destroy', $kdt->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+        </form>
+
+        <a href="{{ route('admin.kandidat.penilaian', $kdt->id) }}" class="btn btn-primary btn-sm">Penilaian</a>
+
+        <!-- Tombol Detail Penilaian -->
+        <a href="{{ route('admin.kandidat.penilaian.detail', $kdt->id) }}" class="btn btn-info btn-sm">Detail</a>
+    </div>
+</td>
+
                     </tr>
                     @empty
                     <tr>

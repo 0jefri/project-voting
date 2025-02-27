@@ -151,4 +151,16 @@ class PenilaianController extends Controller
         return view('admin.kandidat.hasil_penilaian', compact('hasil'));
     }
 
+    public function show($id)
+    {
+        // Ambil data penilaian berdasarkan kandidat_id
+        $penilaian = Penilaian::where('kandidat_id', $id)->first();
+
+        if (!$penilaian) {
+            return view('admin.kandidat.detail_penilaian')->with('error', 'Data penilaian belum tersedia.');
+        }
+
+        return view('admin.kandidat.detail_penilaian', compact('penilaian'));
+    }
+
 }

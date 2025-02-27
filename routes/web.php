@@ -46,6 +46,9 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
 
     Route::get('/admin/kandidat/hasil-gap', [PenilaianController::class, 'hitungGAP'])->name('admin.kandidat.hasil_gap');
     Route::get('/admin/kandidat/hasil-penilaian', [PenilaianController::class, 'hitungCF_SF'])->name('admin.kandidat.hasil_penilaian');
+    Route::get('/admin/kandidat/penilaian/{id}', [PenilaianController::class, 'show'])->name('admin.kandidat.penilaian.detail');
+    Route::get('/admin/kandidat', [KandidatBemController::class, 'index'])->name('admin.kandidat.index');
+
 
 });
 
