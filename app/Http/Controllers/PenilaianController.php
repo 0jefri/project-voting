@@ -39,6 +39,13 @@ class PenilaianController extends Controller
             'kerjasama' => 'required|integer|min:1|max:5',
         ]);
 
+        // Cek apakah kandidat sudah memiliki penilaian
+        $existingPenilaian = Penilaian::where('kandidat_id', $request->kandidat_id)->first();
+
+        if ($existingPenilaian) {
+            return redirect()->back()->with('already_scored', 'Kandidat ini sudah dinilai.');
+        }
+
         Penilaian::create($request->all());
 
         return redirect()->back()->with('success', 'Penilaian berhasil ditambahkan!');

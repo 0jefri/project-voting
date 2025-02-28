@@ -53,4 +53,31 @@
     </div>
   </div>
 
+  @if(session('already_scored'))
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    errorModal.show();
+    });
+    </script>
+  @endif
+
+  <!-- Modal Notifikasi Kandidat Sudah Dinilai -->
+  <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title text-danger" id="errorModalLabel">Peringatan</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      Kandidat ini sudah dinilai sebelumnya dan tidak dapat dinilai lagi!
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+    </div>
+  </div>
+
 @endsection
