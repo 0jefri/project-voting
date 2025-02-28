@@ -39,14 +39,28 @@
                 </div>
 
                 <!-- Upload Berkas -->
+                @php
+                    $berkas = [
+                        'foto' => 'Foto (JPG/PNG)',
+                        'transkrip_nilai' => 'Transkrip Nilai (PDF)',
+                        'visi_misi' => 'Visi Misi (PDF)',
+                        'prestasi_akademik' => 'Prestasi Akademik (PDF)',
+                        'surat_rekomendasi' => 'Surat Rekomendasi (PDF)',
+                        'keikutsertaan_organisasi' => 'Keikutsertaan dalam Organisasi (PDF)',
+                        'prestasi_non_akademik' => 'Prestasi Non Akademik (PDF)',
+                    ];
+                @endphp
+
                 <div class="row">
-                    @foreach(['transkrip_nilai' => 'Transkrip Nilai', 'visi_misi' => 'Visi Misi', 'prestasi_akademik' => 'Prestasi Akademik', 'surat_rekomendasi' => 'Surat Rekomendasi', 'keikutsertaan_organisasi' => 'Keikutsertaan dalam Organisasi', 'prestasi_non_akademik' => 'Prestasi Non Akademik'] as $name => $label)
+                    @foreach($berkas as $name => $label)
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">{{ $label }} (PDF)</label>
-                            <input type="file" name="{{ $name }}" class="form-control" accept=".pdf" required>
+                            <label class="form-label">{{ $label }}</label>
+                            <input type="file" name="{{ $name }}" class="form-control"
+                                accept="{{ $name === 'foto' ? 'image/*' : '.pdf' }}" required>
                         </div>
                     @endforeach
                 </div>
+
 
                 <!-- Pilihan Usia -->
                 <div class="mb-3">
