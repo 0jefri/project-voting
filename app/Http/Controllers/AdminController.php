@@ -86,28 +86,34 @@ class AdminController extends Controller
         return view('admin.mahasiswa.edit', compact('mahasiswa'));
     }
 
+
     public function update(Request $request, $id)
     {
         $request->validate([
-            'username' => 'required|unique:users,username,' . $id,
             'name' => 'required',
             'nim' => 'required|unique:detail_mahasiswa,nim,' . $id . ',user_id',
             'prodi' => 'required',
         ]);
 
+        // Cari user berdasarkan ID
         $user = User::findOrFail($id);
         $user->update([
-            'username' => $request->username,
-            'name' => $request->name,
+            'name' => $request->name, // Update nama di tabel users
         ]);
 
-        $user->detailMahasiswa()->update([
-            'nim' => $request->nim,
-            'prodi' => $request->prodi,
-        ]);
+        // Update detail_mahasiswa
+        $detailMahasiswa = DetailMahasiswa::where('user_id', $id)->first();
+        if ($detailMahasiswa) {
+            $detailMahasiswa->update([
+                'name' => $request->name, // Update nama di tabel detail_mahasiswa
+                'nim' => $request->nim,
+                'prodi' => $request->prodi,
+            ]);
+        }
 
-        return redirect()->route('admin.mahasiswa.index')->with('success', 'Mahasiswa berhasil diperbarui!');
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data mahasiswa berhasil diperbarui');
     }
+
 
     public function destroy($id)
     {
