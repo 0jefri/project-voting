@@ -30,6 +30,9 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
     Route::post('/mahasiswa/import', [AdminController::class, 'processImport'])->name('admin.mahasiswa.import.process');
     Route::get('/mahasiswa/create', [AdminController::class, 'create'])->name('admin.mahasiswa.create');
     Route::post('/mahasiswa/store', [AdminController::class, 'store'])->name('admin.mahasiswa.store');
+    Route::get('/mahasiswa/{id}/edit', [AdminController::class, 'edit'])->name('admin.mahasiswa.edit');
+    Route::put('/mahasiswa/{id}', [AdminController::class, 'update'])->name('admin.mahasiswa.update');
+    Route::delete('/mahasiswa/{id}', [AdminController::class, 'destroy'])->name('admin.mahasiswa.destroy');
 
     //kelola kandidat
     Route::get('/mahasiswa/kandidat', [KandidatBemController::class, 'index'])

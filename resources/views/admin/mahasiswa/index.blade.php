@@ -3,14 +3,10 @@
 @section('title', 'Kelola Mahasiswa')
 
 @section('content')
-  <!-- Menyusun H2 dan tombol dengan jarak yang rapi dan responsif -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="mb-0">Daftar Mahasiswa</h2>
     <div class="d-flex gap-2">
-    <!-- Tombol Tambah Mahasiswa tetap seperti biasa -->
     <a href="{{ route('admin.mahasiswa.create') }}" class="btn btn-success btn-md">Tambah Mahasiswa</a>
-
-    <!-- Tombol untuk membuka modal -->
     <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#importModal">
       Import Mahasiswa
     </button>
@@ -29,6 +25,7 @@
       <th>NIM</th>
       <th>Nama</th>
       <th>Program Studi</th>
+      <th>Aksi</th> <!-- Kolom Aksi -->
       </tr>
     </thead>
     <tbody>
@@ -39,6 +36,15 @@
       <td>{{ $mhs->detailMahasiswa->nim }}</td>
       <td>{{ $mhs->detailMahasiswa->name }}</td>
       <td>{{ $mhs->detailMahasiswa->prodi }}</td>
+      <td>
+      <a href="{{ route('admin.mahasiswa.edit', $mhs->id) }}" class="btn btn-warning btn-sm">Edit</a>
+      <form action="{{ route('admin.mahasiswa.destroy', $mhs->id) }}" method="POST" class="d-inline"
+      onsubmit="return confirm('Yakin ingin menghapus mahasiswa ini?')">
+      @csrf
+      @method('DELETE')
+      <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+      </form>
+      </td>
       </tr>
     @endisset
     @endforeach

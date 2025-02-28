@@ -76,5 +76,52 @@ class AdminController extends Controller
 
         return redirect()->route('admin.mahasiswa.index')->with('success', 'Mahasiswa berhasil ditambahkan');
     }
+
+    public function edit($id)
+    {
+        $mahasiswa = User::where('role', 'mahasiswa')
+            ->with('detailMahasiswa')
+            ->findOrFail($id);
+
+        return view('admin.mahasiswa.edit', compact('mahasiswa'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'username' => 'required|unique:users,username,' . $id,
+            'name' => 'required',
+            'nim' => 'required|unique:detail_mahasiswa,nim,' . $id . ',user_id',
+            'prodi' => 'required',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->update([
+            'username' => $request->username,
+            'name' => $request->name,
+        ]);
+
+        $user->detailMahasiswa()->update([
+            'nim' => $request->nim,
+            'prodi' => $request->prodi,
+        ]);
+
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Mahasiswa berhasil diperbarui!');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Hapus detail mahasiswa jika ada
+        if ($user->detailMahasiswa) {
+            $user->detailMahasiswa->delete();
+        }
+
+        $user->delete();
+
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Mahasiswa berhasil dihapus!');
+    }
+
 }
 
