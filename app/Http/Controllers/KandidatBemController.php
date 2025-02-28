@@ -12,7 +12,7 @@ class KandidatBemController extends Controller
     public function index()
     {
         $kandidat = \App\Models\KandidatBem::with(['ketua', 'wakilKetua'])->get();
-        return view('admin.mahasiswa.kandidat', compact('kandidat'));
+        return view('admin.kandidat.index', compact('kandidat'));
     }
 
     public function create()

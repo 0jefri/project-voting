@@ -78,7 +78,7 @@
     @endif
         @if(Auth::check() && Auth::user()->role === 'admin')
       <li class="nav-item">
-      <a class="nav-link" href="{{ route('admin.mahasiswa.kandidat') }}">Daftar Kandidat</a>
+      <a class="nav-link" href="{{ route('admin.kandidat.index') }}">Daftar Kandidat</a>
       </li>
     @endif
         @if(Auth::check() && Auth::user()->role === 'mahasiswa')
