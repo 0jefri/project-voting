@@ -71,7 +71,7 @@ class KandidatBemController extends Controller
     public function edit($id)
     {
         $kandidat = KandidatBem::findOrFail($id);
-        return view('admin.mahasiswa.edit', compact('kandidat'));
+        return view('admin.kandidat.edit', compact('kandidat'));
     }
 
     public function update(Request $request, $id)
