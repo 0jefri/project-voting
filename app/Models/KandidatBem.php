@@ -20,7 +20,8 @@ class KandidatBem extends Model
         'keikutsertaan_organisasi',
         'prestasi_non_akademik',
         'usia',
-        'status'
+        'status',
+        'foto'
     ];
 
     // Relasi ke User (Ketua)

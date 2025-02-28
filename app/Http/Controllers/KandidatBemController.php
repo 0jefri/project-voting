@@ -34,6 +34,7 @@ class KandidatBemController extends Controller
         }
 
         $request->validate([
+            'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'wakil_ketua' => 'required|exists:users,id|different:id_user',
             'transkrip_nilai' => 'required|mimes:pdf|max:2048',
             'visi_misi' => 'required|mimes:pdf|max:2048',
@@ -52,6 +53,9 @@ class KandidatBemController extends Controller
         $data['surat_rekomendasi'] = $request->file('surat_rekomendasi')->store('berkas', 'public');
         $data['keikutsertaan_organisasi'] = $request->file('keikutsertaan_organisasi')->store('berkas', 'public');
         $data['prestasi_non_akademik'] = $request->file('prestasi_non_akademik')->store('berkas', 'public');
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('foto_kandidat', 'public');
+        }
 
         KandidatBem::create([
             'ketua_id' => $request->id_user,
@@ -63,6 +67,7 @@ class KandidatBemController extends Controller
             'keikutsertaan_organisasi' => $data['keikutsertaan_organisasi'],
             'prestasi_non_akademik' => $data['prestasi_non_akademik'],
             'usia' => $request->usia,
+            'foto' => $data['foto'] ?? null,
         ]);
 
         return redirect()->back()->with('success', 'Pendaftaran berhasil!');
