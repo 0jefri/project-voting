@@ -12,13 +12,18 @@
       <input type="hidden" name="kandidat_id" value="{{ $kandidat->id }}">
 
       @foreach(['ipk' => 'IPK', 'visi_misi' => 'Visi & Misi', 'semester' => 'Semester', 'prestasi_akademik' => 'Prestasi Akademik', 'surat_rekomendasi' => 'Surat Rekomendasi', 'usia' => 'Usia', 'keikutsertaan_organisasi' => 'Keikutsertaan dalam Organisasi', 'prestasi_non_akademik' => 'Prestasi Non Akademik', 'kepemimpinan' => 'Kepemimpinan', 'integritas' => 'Integritas', 'loyalitas' => 'Loyalitas', 'kerjasama' => 'Kerjasama'] as $name => $label)
-      <div class="mb-3">
-      <label class="form-label">{{ $label }} (1-5)</label>
-      <input type="number" name="{{ $name }}" class="form-control" min="1" max="5" required>
+      <div class="mb-4">
+      <label class="form-label fw-bold">{{ $label }}</label>
+      <div class="d-flex justify-content-center gap-2">
+      @for ($i = 1; $i <= 5; $i++)
+      <input class="btn-check" type="radio" name="{{ $name }}" id="{{ $name . $i }}" value="{{ $i }}" required>
+      <label class="btn btn-outline-primary rounded-pill px-4" for="{{ $name . $i }}">{{ $i }}</label>
+    @endfor
+      </div>
       </div>
     @endforeach
 
-      <div class="text-center">
+      <div class="text-center mt-4">
       <button type="submit" class="btn btn-primary w-50">Simpan</button>
       <a href="{{ route('admin.penilaian.index') }}" class="btn btn-secondary">Batal</a>
       </div>
@@ -47,7 +52,7 @@
       Penilaian kandidat telah berhasil disimpan!
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
       </div>
     </div>
     </div>
@@ -79,5 +84,4 @@
     </div>
     </div>
   </div>
-
 @endsection
