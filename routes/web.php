@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\KandidatBemController;
 use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\VotingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
@@ -52,6 +53,8 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
     Route::get('/admin/kandidat/penilaian/{id}', [PenilaianController::class, 'show'])->name('admin.kandidat.penilaian.detail');
     Route::get('/admin/kandidat', [KandidatBemController::class, 'index'])->name('admin.kandidat.index');
 
+    //kelola voting
+    Route::post('/voting/store', [VotingController::class, 'store'])->name('voting.store');
 
 });
 
