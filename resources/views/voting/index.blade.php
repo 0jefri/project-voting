@@ -5,7 +5,7 @@
 @section('content')
   <div class="container mt-4">
     <div class="card shadow-sm p-4">
-    <h2 class="mb-4 text-center">Halaman Voting</h2>
+    <h2 class="mb-0">Halaman Voting</h2>
     <p class="text-center">Silakan pilih kandidat yang Anda inginkan.</p>
 
     @if(session('success'))
