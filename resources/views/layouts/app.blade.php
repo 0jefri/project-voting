@@ -8,56 +8,60 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
   <style>
-    /* Navbar dengan shadow dan transparan */
-    .navbar {
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      background: rgba(255, 255, 255, 0.9);
-      /* Warna putih dengan transparansi */
+    body {
+      padding-top: 100px;
+      /* Sesuaikan dengan tinggi navbar */
     }
 
-    /* Mengubah warna teks navbar menjadi biru */
+    /* Navbar dengan efek glassmorphism */
+    .navbar {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Hover efek dengan animasi underline */
     .navbar-nav .nav-link {
       color: #007bff;
-      /* Warna biru Bootstrap */
-      transition: all 0.3s ease-in-out;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s ease-in-out;
     }
 
-    /* Efek hover untuk navbar link */
-    .navbar-nav .nav-link:hover {
-      /* border: 1px solid #3782fa; */
-      color: #3782fa !important;
-      /* Background biru pada hover */
-      transform: translateY(-3px);
-      /* Efek timbul */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      /* Efek shadow timbul */
-      border-radius: 10px;
+    .navbar-nav .nav-link::after {
+      content: "";
+      display: block;
+      height: 2px;
+      width: 0;
+      background: #007bff;
+      transition: width 0.3s ease-in-out;
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
-    /* Container utama dengan shadow dan border-radius */
-    .content-container {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      padding: 20px;
+    .navbar-nav .nav-link:hover::after {
+      width: 100%;
     }
 
-    /* Tombol Logout dengan efek hover */
-    .btn-outline-danger {
-      transition: all 0.3s ease-in-out;
+    /* Hover efek untuk tombol logout */
+    .btn-danger {
+      transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
     }
 
-    .btn-outline-danger:hover {
-      background-color: #dc3545;
-      color: #fff;
+    .btn-danger:hover {
+      background-color: #c82333;
+      transform: scale(1.05);
     }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand fw-bold" href="#">
         <img src="{{ asset('images/logo.png') }}" alt="Logo" style="max-height: 40px;">
       </a>
 
@@ -66,69 +70,57 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto gap-2">
+        <ul class="navbar-nav ms-auto gap-3 align-items-center">
           @auth
         <li class="nav-item">
-        <a class="nav-link" href="{{ route(Auth::user()->role . '.dashboard') }}">Dashboard</a>
+        <a class="nav-link" href="{{ route(Auth::user()->role . '.dashboard') }}">
+          <i class="bi bi-house-door"></i> Dashboard
+        </a>
         </li>
         @if(Auth::user()->role === 'admin')
       <li class="nav-item">
-      <a class="nav-link" href="{{ route(Auth::user()->role . '.mahasiswa.index') }}">Data Mahasiswa</a>
+      <a class="nav-link" href="{{ route(Auth::user()->role . '.mahasiswa.index') }}">
+        <i class="bi bi-people"></i> Data Mahasiswa
+      </a>
       </li>
-    @endif
-        @if(Auth::check() && Auth::user()->role === 'admin')
       <li class="nav-item">
-      <a class="nav-link" href="{{ route('admin.kandidat.index') }}">Daftar Kandidat</a>
+      <a class="nav-link" href="{{ route('admin.kandidat.index') }}">
+        <i class="bi bi-person-badge"></i> Daftar Kandidat
+      </a>
       </li>
     @endif
-        @if(Auth::check() && Auth::user()->role === 'mahasiswa')
+        @if(Auth::user()->role === 'mahasiswa')
       <li class="nav-item">
-      <a class="nav-link" href="{{ route('mahasiswa.pendaftaran') }}">Pendaftaran</a>
+      <a class="nav-link" href="{{ route('mahasiswa.pendaftaran') }}">
+        <i class="bi bi-pencil-square"></i> Pendaftaran
+      </a>
       </li>
     @endif
-
-        <!-- Tambahkan Halaman Voting -->
         <li class="nav-item">
-        <a class="nav-link" href="{{ route('voting.index') }}">Voting</a>
+        <a class="nav-link" href="{{ route('voting.index') }}">
+          <i class="bi bi-check2-circle"></i> Voting
+        </a>
         </li>
 
-        <!-- Tombol Logout dengan Modal -->
+        <!-- Tombol Logout -->
         <li class="nav-item">
-        <button type="button" class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1"
-          data-bs-toggle="modal" data-bs-target="#logoutModal">
-          <i class="bi bi-box-arrow-right"></i>
+        <button type="button" class="btn btn-danger btn-sm d-flex align-items-center gap-2" data-bs-toggle="modal"
+          data-bs-target="#logoutModal">
+          <i class="bi bi-box-arrow-right"></i> Logout
         </button>
         </li>
-
-        <!-- Modal Konfirmasi Logout -->
-        <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            Apakah kamu yakin ingin logout?
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-            <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
-          </div>
-          </div>
-        </div>
-        </div>
-
       @else
-      <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+      <li class="nav-item">
+      <a class="nav-link" href="{{ route('login') }}">
+        <i class="bi bi-box-arrow-in-right"></i> Login
+      </a>
+      </li>
     @endauth
         </ul>
       </div>
     </div>
   </nav>
+
 
   <div class="container mt-4">
     <div class="content-container">
