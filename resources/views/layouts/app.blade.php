@@ -87,6 +87,11 @@
       </li>
     @endif
 
+        <!-- Tambahkan Halaman Voting -->
+        <li class="nav-item">
+        <a class="nav-link" href="{{ route('voting.index') }}">Voting</a>
+        </li>
+
         <!-- Tombol Logout dengan Modal -->
         <li class="nav-item">
         <button type="button" class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1"
