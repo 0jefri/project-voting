@@ -6,14 +6,24 @@ use App\Models\Voting; // Pastikan ada model Voting
 
 class VotingController extends Controller
 {
+
+    public function index()
+    {
+        // Ambil semua kandidat yang telah di-ACC
+        $votingData = Voting::all();
+
+        return view('voting.index', compact('votingData'));
+    }
+
     public function store(Request $request)
     {
-        // Simpan kandidat yang disetujui ke tabel voting
+        // Simpan kandidat ke database
         Voting::create([
             'kandidat' => $request->kandidat,
             'nilai' => $request->nilai,
         ]);
 
-        return redirect()->back()->with('success', 'Kandidat berhasil dikirim ke voting!');
+        return redirect()->route('voting.index')->with('success', 'Kandidat berhasil ditambahkan!');
     }
+
 }

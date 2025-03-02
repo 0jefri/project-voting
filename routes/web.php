@@ -19,6 +19,10 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/voting', [VotingController::class, 'index'])->name('voting.index');
+});
+
 // Middleware untuk Admin
 Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
