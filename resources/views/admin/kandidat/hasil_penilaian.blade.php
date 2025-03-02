@@ -16,6 +16,7 @@
         <th>Core Factor (CF)</th>
         <th>Secondary Factor (SF)</th>
         <th>Nilai Akhir</th>
+        <th>Aksi</th> <!-- Tambahkan kolom Aksi -->
         </tr>
       </thead>
       <tbody>
@@ -28,6 +29,15 @@
       <td>{{ $value }}</td>
     @endif
     @endforeach
+      <td>
+        <!-- Tombol untuk mengirim kandidat ke halaman voting -->
+        <form action="{{ route('voting.store') }}" method="POST">
+        @csrf
+        <input type="hidden" name="kandidat" value="{{ $data['kandidat'] }}">
+        <input type="hidden" name="nilai" value="{{ $data['nilai_akhir'] }}">
+        <button type="submit" class="btn btn-success btn-sm">Acc</button>
+        </form>
+      </td>
       </tr>
     @endforeach
       </tbody>
