@@ -1,5 +1,6 @@
 <?php
 
+// app/Models/Voting.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +10,13 @@ class Voting extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['kandidat', 'nilai'];
-}
+    protected $fillable = ['kandidat_id', 'nilai'];
 
+    // Relasi ke KandidatBem
+    public function kandidatBem()
+    {
+        return $this->belongsTo(KandidatBem::class, 'kandidat_id');
+    }
+
+    // Hapus method index() dari model (seharusnya di controller)
+}

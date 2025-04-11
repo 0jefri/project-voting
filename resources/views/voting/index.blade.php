@@ -14,32 +14,28 @@
     </div>
   @endif
 
-    @if($votingData->isEmpty())
+    @if($kandidat->isEmpty())
     <p class="text-center text-muted">Belum ada kandidat yang di-ACC.</p>
   @else
   <div class="table-responsive">
-    <table class="table table-bordered table-hover">
-    <thead class="table-primary">
-    <tr>
-    <th>No</th>
-    <th>Kandidat</th>
-    <th>Nilai Akhir</th>
-    <th>Pilih</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach($votingData as $index => $data)
-    <tr>
-    <td>{{ $loop->iteration }}</td>
-    <td>{{ $data->kandidat }}</td>
-    <td>{{ $data->nilai }}</td>
-    <td>
-      <button class="btn btn-primary btn-sm">Vote</button>
-    </td>
-    </tr>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @foreach($kandidat as $item)
+    <div class="col">
+    <div class="card h-100">
+    @if($item->foto)
+    <img src="{{ asset('storage/' . $item->foto) }}" class="card-img-top"
+      style="height: 200px; object-fit: cover;">
+  @endif
+    <div class="card-body">
+      <h5 class="card-title">{{ $item->ketua->name }}</h5>
+      <p class="card-text">
+      Wakil: {{ $item->wakilKetua->name }}<br>
+      </p>
+    </div>
+    </div>
+    </div>
   @endforeach
-    </tbody>
-    </table>
+    </div>
   </div>
 @endif
 

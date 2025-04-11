@@ -16,7 +16,6 @@
         <th>Core Factor (CF)</th>
         <th>Secondary Factor (SF)</th>
         <th>Nilai Akhir</th>
-        <th>Aksi</th> <!-- Tambahkan kolom Aksi -->
         </tr>
       </thead>
       <tbody>
@@ -29,14 +28,6 @@
       <td>{{ $value }}</td>
     @endif
     @endforeach
-      <td>
-        <!-- Tombol untuk membuka modal konfirmasi -->
-        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal"
-        data-kandidat="{{ $data['kandidat'] }}" data-nilai="{{ $data['nilai_akhir'] }}">
-        Acc
-        </button>
-      </td>
-
       </tr>
     @endforeach
       </tbody>

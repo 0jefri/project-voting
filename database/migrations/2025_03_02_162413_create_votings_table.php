@@ -12,10 +12,17 @@ return new class extends Migration {
     {
         Schema::create('votings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('ketua_id');  // Relasi ke ketua
+            $table->unsignedBigInteger('wakil_ketua_id');  // Relasi ke wakil ketua
             $table->string('kandidat');
-            $table->decimal('nilai', 8, 2);
+            $table->integer('nilai');
             $table->timestamps();
+
+            // Menambahkan foreign key
+            $table->foreign('ketua_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('wakil_ketua_id')->references('id')->on('users')->onDelete('cascade');
         });
+
     }
 
 

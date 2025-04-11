@@ -27,6 +27,8 @@ class AdminController extends Controller
 
     public function import(Request $request)
     {
+        set_time_limit(0); // ⏱️ Biar nggak timeout walau proses lama
+
         $request->validate([
             'file' => 'required|mimes:xlsx,xls,csv',
         ]);
@@ -38,6 +40,8 @@ class AdminController extends Controller
 
     public function processImport(Request $request)
     {
+        set_time_limit(0); // ⏱️ supaya aman dari timeout
+
         $request->validate([
             'file' => 'required|mimes:xlsx,xls,csv',
         ]);
@@ -46,8 +50,6 @@ class AdminController extends Controller
 
         return redirect()->route('admin.mahasiswa.index')->with('success', 'Data Mahasiswa berhasil diimport!');
     }
-
-
 
 
     public function store(Request $request)

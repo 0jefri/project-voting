@@ -35,5 +35,11 @@ class KandidatBem extends Model
     {
         return $this->belongsTo(User::class, 'wakil_ketua_id');
     }
+
+    // app/Models/KandidatBem.php
+    public function voting()
+    {
+        return $this->hasOne(Voting::class, 'kandidat_id');
+    }
 }
 

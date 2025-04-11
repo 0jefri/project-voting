@@ -11,9 +11,13 @@ class KandidatBemController extends Controller
 
     public function index()
     {
+        // Mengambil data kandidat beserta ketua dan wakil ketua
         $kandidat = \App\Models\KandidatBem::with(['ketua', 'wakilKetua'])->get();
+
+        // Mengirim variabel $kandidat ke view
         return view('admin.kandidat.index', compact('kandidat'));
     }
+
 
     public function create()
     {
@@ -58,7 +62,7 @@ class KandidatBemController extends Controller
         }
 
         KandidatBem::create([
-            'ketua_id' => $request->id_user,
+            'ketua_id' => auth()->id(),
             'wakil_ketua_id' => $request->wakil_ketua,
             'transkrip_nilai' => $data['transkrip_nilai'],
             'visi_misi' => $data['visi_misi'],
@@ -67,6 +71,7 @@ class KandidatBemController extends Controller
             'keikutsertaan_organisasi' => $data['keikutsertaan_organisasi'],
             'prestasi_non_akademik' => $data['prestasi_non_akademik'],
             'usia' => $request->usia,
+            'status' => 'pending',
             'foto' => $data['foto'] ?? null,
         ]);
 
