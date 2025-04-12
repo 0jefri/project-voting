@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Voting;
+use App\Models\VotingStatus;
 use Illuminate\Http\Request;
 use App\Models\KandidatBem;
 use Illuminate\Support\Facades\Storage;
@@ -18,18 +20,27 @@ class KandidatBemController extends Controller
         return view('admin.kandidat.index', compact('kandidat'));
     }
 
-
     public function create()
     {
+        $registration = VotingStatus::where('name', 'registration_open')->first();
+
         $mahasiswa = \App\Models\User::where('role', 'mahasiswa')
             ->where('id', '!=', auth()->id()) // Exclude user yang login
             ->get();
+
+        $kandidat = \App\Models\KandidatBem::where('ketua_id', auth()->id())->first();
+
         return view('mahasiswa.pendaftaran', compact('mahasiswa'));
     }
 
 
     public function store(Request $request)
     {
+        $registration = VotingStatus::where('name', 'registration_open')->first();
+        if (!$registration || !$registration->is_active) {
+            return redirect()->back()->with('error', 'Pendaftaran sudah ditutup.');
+        }
+
         // Cek apakah mahasiswa sudah terdaftar sebagai kandidat
         $sudahTerdaftar = KandidatBem::where('ketua_id', auth()->id())->exists();
 

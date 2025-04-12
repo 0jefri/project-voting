@@ -9,7 +9,7 @@
     <div class="container mt-4">
         <div class="card shadow-sm p-4">
             <h2 class="mb-4 text-center">Pendaftaran Kandidat</h2>
-            <form action="{{ route('mahasiswa.pendaftaran') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('mahasiswa.pendaftaran.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <!-- Mengambil Data Mahasiswa dari Database -->

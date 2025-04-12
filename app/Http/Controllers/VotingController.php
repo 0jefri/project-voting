@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\KandidatBem;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 use App\Models\Voting; // Pastikan ada model Voting
 
@@ -16,37 +17,52 @@ class VotingController extends Controller
             ->orWhere('is_acc', true)
             ->get();
 
-        return view('voting.index', compact('kandidat'));
+        $statuses = \App\Models\VotingStatus::all();
+
+        return view('voting.index', compact('kandidat', 'statuses'));
     }
 
     public function store(Request $request)
     {
+        if (auth()->user()->role !== 'mahasiswa') {
+            abort(403);
+        }
+
+        $userId = auth()->id();
+        $kandidatId = $request->kandidat_id;
+
+        $existingVote = Vote::where('user_id', auth()->id())->first();
+
+        if ($existingVote) {
+            // Jika sudah, beri tahu pengguna bahwa mereka telah memberikan suara
+            return redirect()->route('voting.index')->with('already_voted', true);
+        }
+
         $request->validate([
-            'kandidat' => 'required|string',
-            'nilai' => 'required|numeric',
+            'kandidat_id' => 'required|exists:kandidat_bem,id',
         ]);
 
-        // Cari kandidat berdasarkan nama ketua
-        $kandidat = KandidatBem::whereHas('ketua', function ($query) use ($request) {
-            $query->where('name', $request->kandidat);
-        })->first();
+
+        $kandidat = KandidatBem::find($request->kandidat_id);
+
 
         if (!$kandidat) {
             return back()->with('error', 'Kandidat tidak ditemukan!');
         }
 
-        // Update status kandidat
+        // Update status kandidat (jika memang ini bagian dari logika voting)
         $kandidat->update([
             'status' => 'approved',
             'is_acc' => true
         ]);
 
-        // Simpan ke tabel voting
-        Voting::updateOrCreate(
-            ['kandidat_id' => $kandidat->id],
-            ['nilai' => $request->nilai]
-        );
+        Vote::create([
+            'user_id' => $userId,
+            'kandidat_id' => $kandidatId,
+        ]);
 
-        return redirect()->route('voting.index')->with('success', 'Kandidat berhasil di-ACC!');
+
+        return redirect()->route('voting.index')->with('voted_successfully', true);
     }
+
 }

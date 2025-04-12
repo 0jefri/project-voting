@@ -10,7 +10,7 @@ class Voting extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['kandidat_id', 'nilai'];
+    protected $fillable = ['user_id', 'kandidat_id', 'nilai'];
 
     // Relasi ke KandidatBem
     public function kandidatBem()
@@ -18,5 +18,9 @@ class Voting extends Model
         return $this->belongsTo(KandidatBem::class, 'kandidat_id');
     }
 
-    // Hapus method index() dari model (seharusnya di controller)
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

@@ -72,43 +72,48 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto gap-3 align-items-center">
           @auth
+            <li class="nav-item">
+            <a class="nav-link" href="{{ route(Auth::user()->role . '.dashboard') }}">
+              <i class="bi bi-house-door"></i> Dashboard
+            </a>
+            </li>
+            @if(Auth::user()->role === 'admin')
         <li class="nav-item">
-        <a class="nav-link" href="{{ route(Auth::user()->role . '.dashboard') }}">
-          <i class="bi bi-house-door"></i> Dashboard
+        <a class="nav-link" href="{{ route(Auth::user()->role . '.mahasiswa.index') }}">
+          <i class="bi bi-people"></i> Data Mahasiswa
         </a>
         </li>
-        @if(Auth::user()->role === 'admin')
-      <li class="nav-item">
-      <a class="nav-link" href="{{ route(Auth::user()->role . '.mahasiswa.index') }}">
-        <i class="bi bi-people"></i> Data Mahasiswa
-      </a>
-      </li>
-      <li class="nav-item">
-      <a class="nav-link" href="{{ route('admin.kandidat.index') }}">
-        <i class="bi bi-person-badge"></i> Daftar Kandidat
-      </a>
-      </li>
-    @endif
-        @if(Auth::user()->role === 'mahasiswa')
-      <li class="nav-item">
-      <a class="nav-link" href="{{ route('mahasiswa.pendaftaran') }}">
-        <i class="bi bi-pencil-square"></i> Pendaftaran
-      </a>
-      </li>
-    @endif
         <li class="nav-item">
-        <a class="nav-link" href="{{ route('voting.index') }}">
-          <i class="bi bi-check2-circle"></i> Voting
+        <a class="nav-link" href="{{ route('admin.kandidat.index') }}">
+          <i class="bi bi-person-badge"></i> Daftar Kandidat
         </a>
         </li>
+      @endif
+            @php
+        $status = \App\Models\VotingStatus::where('name', 'registration_open')->first();
+        @endphp
 
-        <!-- Tombol Logout -->
+            @if(Auth::user()->role === 'mahasiswa' && $status && $status->is_active)
         <li class="nav-item">
-        <button type="button" class="btn btn-danger btn-sm d-flex align-items-center gap-2" data-bs-toggle="modal"
-          data-bs-target="#logoutModal">
-          <i class="bi bi-box-arrow-right"></i> Logout
-        </button>
+        <a class="nav-link" href="{{ route('mahasiswa.pendaftaran.form') }}">
+          <i class="bi bi-pencil-square"></i> Pendaftaran
+        </a>
         </li>
+      @endif
+
+            <li class="nav-item">
+            <a class="nav-link" href="{{ route('voting.index') }}">
+              <i class="bi bi-check2-circle"></i> Voting
+            </a>
+            </li>
+
+            <!-- Tombol Logout -->
+            <li class="nav-item">
+            <button type="button" class="btn btn-danger btn-sm d-flex align-items-center gap-2" data-bs-toggle="modal"
+              data-bs-target="#logoutModal">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+            </li>
       @else
       <li class="nav-item">
       <a class="nav-link" href="{{ route('login') }}">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\KandidatBemController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\VotingController;
+use App\Http\Controllers\VotingStatusController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
@@ -21,6 +22,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/voting', [VotingController::class, 'index'])->name('voting.index');
+    Route::post('/vote', [VotingController::class, 'store'])->name('voting.store');
+
 });
 
 // Middleware untuk Admin
@@ -57,9 +60,9 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
     Route::get('/admin/kandidat/penilaian/{id}', [PenilaianController::class, 'show'])->name('admin.kandidat.penilaian.detail');
     Route::get('/admin/kandidat', [KandidatBemController::class, 'index'])->name('admin.kandidat.index');
 
-    //kelola voting
-    Route::post('/voting/store', [VotingController::class, 'store'])->name('voting.store');
-
+    //kelola status voting
+    Route::get('/admin/voting-status', [VotingStatusController::class, 'index'])->name('admin.voting-status.index');
+    Route::post('/admin/voting-status/update', [VotingStatusController::class, 'update'])->name('admin.voting-status.update');
 });
 
 
@@ -70,10 +73,8 @@ Route::middleware(['auth', 'can:mahasiswa'])->prefix('mahasiswa')->group(functio
     })->name('mahasiswa.dashboard');
 
     Route::get('/mahasiswa/pendaftaran', [KandidatBemController::class, 'create'])
-        ->name('mahasiswa.pendaftaran');
+        ->name('mahasiswa.pendaftaran.form');
 
     Route::post('/mahasiswa/pendaftaran', [KandidatBemController::class, 'store'])
-        ->name('mahasiswa.pendaftaran');
+        ->name('mahasiswa.pendaftaran.store');
 });
-
-
