@@ -6,7 +6,6 @@
   <div class="container mt-4">
     <div class="card shadow-sm p-4">
     <h2 class="text-center mb-3">🗳️ Halaman Voting</h2>
-    <p class="text-center text-muted">Silakan pilih kandidat yang Anda inginkan.</p>
 
     @if(session('success'))
     <div class="alert alert-success">
