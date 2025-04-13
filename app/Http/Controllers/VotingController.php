@@ -70,14 +70,25 @@ class VotingController extends Controller
 
     public function hasil()
     {
-        $hasilVoting = Vote::with(['kandidat', 'kandidat.ketua', 'kandidat.wakilKetua'])
+        $hasilVoting = Vote::with(['kandidat.ketua', 'kandidat.wakilKetua'])
             ->select('kandidat_id', DB::raw('count(*) as total_suara'))
             ->groupBy('kandidat_id')
             ->get();
 
-        return view('voting.hasil', compact('hasilVoting'));
-    }
+        $totalSuara = $hasilVoting->sum('total_suara');
 
+        $labels = [];
+        $data = [];
+        $colors = [];
+
+        foreach ($hasilVoting as $item) {
+            $labels[] = $item->kandidat->ketua->name . ' & ' . $item->kandidat->wakilKetua->name;
+            $data[] = $item->total_suara;
+            $colors[] = '#' . substr(md5($item->kandidat_id), 0, 6); // Warna unik berdasarkan ID kandidat
+        }
+
+        return view('voting.hasil', compact('hasilVoting', 'totalSuara', 'labels', 'data', 'colors'));
+    }
 
     public function export()
     {
