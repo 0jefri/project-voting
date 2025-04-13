@@ -107,6 +107,12 @@
             </a>
             </li>
 
+            <li class="nav-item">
+            <a class="nav-link" href="{{ route('voting.hasil') }}">
+              <i class="bi bi-bar-chart-line"></i> Hasil Voting
+            </a>
+            </li>
+
             <!-- Tombol Logout -->
             <li class="nav-item">
             <button type="button" class="btn btn-danger btn-sm d-flex align-items-center gap-2" data-bs-toggle="modal"

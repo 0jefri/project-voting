@@ -24,6 +24,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/voting', [VotingController::class, 'index'])->name('voting.index');
     Route::post('/vote', [VotingController::class, 'store'])->name('voting.store');
 
+    //hasil voting
+    Route::get('/hasil-voting', [VotingController::class, 'hasil'])->name('voting.hasil');
+
+
 });
 
 // Middleware untuk Admin
@@ -63,6 +67,10 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
     //kelola status voting
     Route::get('/admin/voting-status', [VotingStatusController::class, 'index'])->name('admin.voting-status.index');
     Route::post('/admin/voting-status/update', [VotingStatusController::class, 'update'])->name('admin.voting-status.update');
+
+    //hasil voting
+    Route::get('/voting/export', [VotingController::class, 'export'])->name('voting.export');
+
 });
 
 
