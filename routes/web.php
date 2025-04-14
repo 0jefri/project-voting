@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
     //hasil voting
     Route::get('/hasil-voting', [VotingController::class, 'hasil'])->name('voting.hasil');
 
-
+    Route::get('/hasil/export-pdf', [VotingController::class, 'exportPDF'])->name('voting.export-pdf');
 });
 
 // Middleware untuk Admin

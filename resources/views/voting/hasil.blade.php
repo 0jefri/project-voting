@@ -22,6 +22,7 @@
           <tr>
           <th>Kandidat</th>
           <th>Suara</th>
+          <th>Nilai Akhir</th>
           <th>Persentase</th>
           </tr>
         </thead>
@@ -33,6 +34,7 @@
         <small class="text-muted">{{ $item->kandidat->wakilKetua->name }}</small>
         </td>
         <td>{{ $item->total_suara }}</td>
+        <td>{{ $item->nilai_akhir ?? 'Tidak Ada' }}</td>
         <td>
         @if($totalSuara > 0)
       {{ number_format(($item->total_suara / $totalSuara) * 100, 1) }}%
@@ -44,7 +46,7 @@
       @endforeach
           <tr class="table-info">
           <td><strong>Total</strong></td>
-          <td colspan="2"><strong>{{ $totalSuara }} suara</strong></td>
+          <td colspan="3"><strong>{{ $totalSuara }} suara</strong></td>
           </tr>
         </tbody>
         </table>

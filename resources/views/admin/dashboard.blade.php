@@ -3,13 +3,13 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
-  <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+  <h4 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
     Selamat datang, {{ Auth::user()->name }}!
-  </h2>
+  </h4>
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg">
+    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg rounded-lg">
 
       <div class="p-6 text-center font-extrabold text-2xl text-gray-900 dark:text-gray-100">
       {{ __("SISTEM PENDUKUNG KEPUTUSAN PEMILIHAN KETUA BEM UM BANJARMASIN") }}
@@ -49,6 +49,21 @@
       </div>
 
     </div>
+    </div>
+  </div>
+@endsection
+@section('footer')
+  <div class="container mx-auto px-4">
+    <div class="mb-4">
+    <img src="{{ asset('images/logo.png') }}" alt="UM Banjarmasin" style="max-height: 40px;">
+    </div>
+
+    <p class="text-sm opacity-80 mb-4">Universitas Muhammadiyah Banjarmasin</p>
+
+    <div class="border-t border-white/20 pt-4">
+    <p class="text-xs md:text-sm">
+      © 2025 Hak Cipta Dilindungi - UM Banjarmasin
+    </p>
     </div>
   </div>
 @endsection

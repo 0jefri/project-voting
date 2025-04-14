@@ -55,6 +55,11 @@
       background-color: #c82333;
       transform: scale(1.05);
     }
+
+    .header-title {
+      font-size: 16px;
+      color: #FF0000;
+    }
   </style>
 </head>
 
@@ -63,6 +68,7 @@
     <div class="container">
       <a class="navbar-brand fw-bold" href="#">
         <img src="{{ asset('images/logo.png') }}" alt="Logo" style="max-height: 40px;">
+        <span class="header-title">Universitas Muhammadiyah Banjarmasin</span>
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -163,6 +169,14 @@
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  @hasSection('footer')
+    <footer class="text-center py-4 mt-5 bg-primary text-black border-top">
+    @yield('footer')
+    </footer>
+  @endif
+</body>
+
 </body>
 
 </html>
