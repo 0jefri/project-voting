@@ -49,7 +49,7 @@
       <div class="card h-100 shadow-sm">
       @if($item->foto)
       <img src="{{ asset('storage/' . $item->foto) }}" class="card-img-top"
-      style="height: 220px; object-fit: cover;" alt="Foto Kandidat">
+      style="height: 220px; width: 100%; object-fit: contain;" alt="Foto Kandidat">
     @endif
       <div class="card-body d-flex flex-column">
       <h5 class="card-title text-center">{{ $item->ketua->name }}</h5>

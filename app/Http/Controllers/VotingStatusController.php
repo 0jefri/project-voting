@@ -16,7 +16,7 @@ class VotingStatusController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'status_name' => 'required|in:registration_open,voting_open',
+            'status_name' => 'required|in:registration_open,registration_closed',
         ]);
 
         // Reset semua status ke false
