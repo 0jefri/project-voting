@@ -1,8 +1,14 @@
 @extends('layouts.app')
 
 @section('title', 'Pendaftaran Kandidat')
-<!-- Tambahkan ini sebelum </body> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
 
 @section('content')
@@ -27,7 +33,7 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="wakil_ketua" class="form-label">Wakil Ketua</label>
-                        <select name="wakil_ketua" id="wakil_ketua" class="form-select" required>
+                        <select name="wakil_ketua" id="wakil_ketua" class="form-select select2" required>
                             <option value="">Pilih Wakil Ketua</option>
                             @foreach($mahasiswa as $mhs)
                                 @if($mhs->id !== Auth::id())
@@ -165,4 +171,14 @@
             }
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            $('.select2').select2({
+                placeholder: "Pilih Wakil Ketua",
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
+
 @endsection
