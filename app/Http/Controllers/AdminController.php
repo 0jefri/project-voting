@@ -11,14 +11,24 @@ use App\Imports\MahasiswaImport;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $mahasiswa = User::where('role', 'mahasiswa')
-            ->with('detailMahasiswa')
-            ->paginate(10); // Tambahkan pagination di sini
+        $query = User::where('role', 'mahasiswa')->with('detailMahasiswa');
+
+        if ($request->has('search') && $request->search != '') {
+            $search = strtolower($request->search);
+
+            $query->whereHas('detailMahasiswa', function ($q) use ($search) {
+                $q->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
+                    ->orWhere('nim', 'like', "%{$search}%");
+            });
+        }
+
+        $mahasiswa = $query->paginate(10)->withQueryString();
 
         return view('admin.mahasiswa.index', compact('mahasiswa'));
     }
+
 
     public function create()
     {

@@ -17,6 +17,14 @@
     <div class="alert alert-success mb-4">{{ session('success') }}</div>
   @endif
 
+  <div class="d-flex justify-content-center mb-4">
+    <form action="{{ route('admin.mahasiswa.index') }}" method="GET" class="d-flex" style="width: 400px;">
+    <input type="text" name="search" class="form-control me-2" placeholder="Cari nama atau NIM..."
+      value="{{ request('search') }}">
+    <button class="btn btn-outline-primary" type="submit">Cari</button>
+    </form>
+  </div>
+
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
     <thead class="table-success">
