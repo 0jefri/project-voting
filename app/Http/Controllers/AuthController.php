@@ -19,7 +19,14 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($request->only('username', 'password'))) {
+        $username = strtolower($request->username);
+
+        if (
+            Auth::attempt([
+                'username' => $username,
+                'password' => $request->password,
+            ])
+        ) {
             $user = Auth::user();
 
             // Redirect berdasarkan role
