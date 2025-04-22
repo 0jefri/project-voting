@@ -65,7 +65,7 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username' => 'required|unique:users',
+            'username' => 'required',
             'password' => 'required',
             'name' => 'required',
             'nim' => 'required|unique:detail_mahasiswa',
