@@ -126,13 +126,7 @@
               <i class="bi bi-box-arrow-right"></i> Logout
             </button>
             </li>
-      @else
-      <li class="nav-item">
-      <a class="nav-link" href="{{ route('login') }}">
-        <i class="bi bi-box-arrow-in-right"></i> Login
-      </a>
-      </li>
-    @endauth
+      @endauth
         </ul>
       </div>
     </div>
